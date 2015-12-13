@@ -1,11 +1,39 @@
 # oVPN.to Speedtest Script
 **light-weight, automated, cross-plattform shell script, to easily check current network quality of oVPN.to servers**
 
+```
+Syntax:
+oVPN.to-Speedtest.sh SERVERNAME [SERVERNAME] [...] [SERVERNAME]
+oVPN.to-Speedtest.sh [OPTION]
+
+General options:
+-h, --help       display this help message
+-l, --list       list all valid servers
+-g, --gen        generate server list from config directory
+-u, --update     download current configs & generate new server list
+
+Target specification options:
+-a, --all        check all servers
+-5, --rand5      check 5 random servers from list
+-3, --rand3      check 3 random servers from list
+
+Example usage:
+oVPN.to-Speedtest.sh CH6 MD2 UK1 FR2 BG1 MD1 NL6 US1
+oVPN.to-Speedtest.sh --list
+```
+
+## Features
+* generate server list from config-file archiv
+* download latest config-files from oVPN.to control panel via API
+* cross-plattform: tested on Mac OS X, Linux, OpenWRT, Synology Diskstation, etc.
+* no dependencies
+
+
 ## Usage examples 
 Manually check the network speed of some oVPN.to servers, before (re-)connecting your VPN connection (from home or on the road). To easily identify the servers that provide the connection speed you need/want. (e.g. before downloading ISOs or 100 GB porn site-rips, ...)
 
 ```
-./oVPN.to-Speedtest.sh -3
+root@x:~/oVPN.to-Speedtest# ./oVPN.to-Speedtest.sh -3
                       __         ____                ____          __
  ___ _  _____  ___   / /____    / __/__  ___ ___ ___/ / /____ ___ / /_
 / _ \ |/ / _ \/ _ \_/ __/ _ \  _\ \/ _ \/ -_) -_) _  / __/ -_|_-</ __/
@@ -17,7 +45,7 @@ Testing current network quality of: HU1.ovpn.to UK1.ovpn.to FR2.ovpn.to
 Metered download speed for HU1.ovpn.to: 20323 Kb/s (19.84 Mb/s).
 Metered download speed for UK1.ovpn.to: 39367 Kb/s (38.44 Mb/s).
 Metered download speed for FR2.ovpn.to: 47624 Kb/s (46.50 Mb/s).
-root@dl:~/oVPN.to-Speedtest#
+root@x:~/oVPN.to-Speedtest#
 ```
 
 ####  
@@ -88,41 +116,10 @@ Metered download speed for US1.ovpn.to.ovpn.to: 46851 Kb/s (45.75 Mb/s).
 root@dl:~/oVPN.to-Speedtest#
 ```
 
-```
-Syntax:
-oVPN.to-Speedtest.sh SERVERNAME [SERVERNAME] [...] [SERVERNAME]
-oVPN.to-Speedtest.sh [OPTION]
-
-General options:
--h, --help       display this help message
--l, --list       list all valid servers
--g, --gen        generate server list from config directory
--u, --update     download current configs & generate new server list
-
-Target specification options:
--a, --all        check all servers
--5, --rand5      check 5 random servers from list
--3, --rand3      check 3 random servers from list
-
-Example usage:
-oVPN.to-Speedtest.sh CH6 MD2 UK1 FR2 BG1 MD1 NL6 US1
-oVPN.to-Speedtest.sh --list
-root@dl:~/oVPN.to-Speedtest#
-```
-
-
-
-
-
-
-## Features
-* generate server list from config-file archiv
-* cross-plattform: tested on Mac OS X, Linux, OpenWRT, Synology Diskstation, etc.
-* no dependencies
 
 ### Misc
 <pre>
  Status: unfinished, draft 
- Version: 1.2
- Roadmap: i may improve, fix and extend it or never commit one line again
+ Version: 1.6
+ Roadmap: wat!?
 </pre>
