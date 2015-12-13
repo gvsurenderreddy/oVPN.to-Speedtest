@@ -72,7 +72,7 @@ links=("http://cachefly.cachefly.net/100mb.test"
 "http://lg.as47692.net/tools/100MB.test"
 "http://www.seflow.it/infrastruttura/100MB.test")
 
-echo "Testing current network quality of $1.ovpn.to!"
+echo "Testing current network quality of $1!"
 cd $TMP_PATH
 for link in ${links[*]}
 do
@@ -92,7 +92,7 @@ do
     speed2=`(echo "scale=2;$speed/1024" | bc)`
 
     
-    echo "Metered download speed for $1.ovpn.to: $speed Kb/s ($speed2 Mb/s)".
+    echo "Metered download speed for $1: $speed Kb/s ($speed2 Mb/s)".
    
     
    # exit 0
@@ -118,7 +118,7 @@ usage() {
 Usage: $PROGNAME [OPTION...] <server> [server] [server] [server]
 
 Options:
--h, --help          display this usage message and exit
+-h, --help          display this help message
 -a, --all           check all servers
 -l, --list          list all valid servers
 -g, --gen           generate server list from config directory
@@ -142,14 +142,18 @@ while [ $# -gt 0 ] ; do
         
     -a|--all)
         {      
-         source settings.conf
-         while read -r line
-do
-    host=$(echo $line|awk '{print $1}')
-	ip=$(echo $line|awk '{print $2}')
-  
-    checker $host $ip
-done < "serverlist.txt" ; }
+        
+         if [ -f settings.conf ]; then
+              source settings.conf
+         		while read -r line
+					do
+    					host=$(echo $line|awk '{print $1}')
+						ip=$(echo $line|awk '{print $2}')
+  				    	checker $host $ip
+					done < "serverlist.txt" ;
+else echo -e "No config file found. Generate a new one, with option \033[31m--update\033[0m or copy an existing one to: \033[31msettings.conf\033[0m."
+fi   
+        }
         
         bar="1"
         ;;
