@@ -35,18 +35,26 @@ CVERSION="22x"
 	
 	DATA="uid=${USERID}&apikey=${APIKEY}&action=getconfigs&version=${CVERSION}&type=${OCFGTYPE}";
 	
-	echo Download Configs 
-	curl --request POST $URL --data $DATA -o configs.zip
+	echo Downloading config files from oVPN.to! 
+	curl --silent --request POST $URL --data $DATA -o configs.zip
 
 echo Extract new configs
 if [ -d configs ]; then
   mv configs configs.old
 fi
+if [ -d configs.old ]; then
+  rm -rf configs.old
+fi
 
 
 mkdir configs
-unzip configs.zip -d configs
+unzip -q configs.zip -d configs 
 rm configs.zip
+export CONFIG_PATH=configs
+grep "remote " $CONFIG_PATH/*.ovpn|sed -r 's/^.+\///' | sed  's/.ovpn:remote//g'|awk '{print $1 " " $2}' > serverlist.txt
+count=`wc -l serverlist.txt|awk '{print $1}'`
+echo -e "\nInsgesamt $count Server in Configs-Ordner gefunden und in Serverliste geschrieben."
+
 
 }
 checker() {
@@ -131,7 +139,7 @@ echo General options:
 echo -e "-h, --help\t display this help message"
 echo -e "-l, --list\t list all valid servers"
 echo -e "-g, --gen \t generate server list from config directory"
-echo -e "-u, --update\t update config files"
+echo -e "-u, --update\t download current configs & generate new server list"
 echo -e "\nTarget specification options:"
 echo -e "-a, --all\t check all servers"
 echo -e "-5, --rand5\t check 5 random servers from list"
@@ -228,7 +236,7 @@ fi           }
        export CONFIG_PATH=configs
 grep "remote " $CONFIG_PATH/*.ovpn|sed -r 's/^.+\///' | sed  's/.ovpn:remote//g'|awk '{print $1 " " $2}' > serverlist.txt
 count=`wc -l serverlist.txt|awk '{print $1}'`
-echo Insgesamt $count gefunden und in Serverliste geschrieben.
+echo Insgesamt $count Server in Configs-Ordner gefunden und in Serverliste geschrieben.
    else 
    echo Verzeichnis mit Konfigurationen \(\"configs\"\) nicht gefunden.
    fi      }
