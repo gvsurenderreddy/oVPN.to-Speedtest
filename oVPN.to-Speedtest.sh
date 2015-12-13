@@ -164,8 +164,7 @@ echo Insgesamt $count gefunden und in Serverliste geschrieben.
         bar="1"
         ;;
    -u|--update)
-        echo Update
-        checker
+        update
         bar="1"
         ;;
     -*)
