@@ -157,7 +157,7 @@ done < "serverlist.txt" ; }
         { echo  -e "\033[31mCurrent oVPN.to Server List\033[0m\n";
             if [ -f serverlist.txt ]; then
               cat serverlist.txt;count=`wc -l serverlist.txt | awk '{print $1}'`;echo -e "\n\033[31mTotal: $count active\033[0m"; 
-else echo No server list found, generate one with -g.
+else echo -e "No server list found, generate a new one with \033[31m--gen\033[0m or copy an existing list to: <serverlist.txt>.
 fi           }
         bar="1"
         ;;
