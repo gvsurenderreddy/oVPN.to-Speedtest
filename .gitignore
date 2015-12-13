@@ -1,7 +1,7 @@
 ovpnproxy.conf
-serverlist.txt
 configs
 settings.conf
 settings.conf.bu
 getconfigs.sh
 serverlist.txt.bu
+serverlist.txt
