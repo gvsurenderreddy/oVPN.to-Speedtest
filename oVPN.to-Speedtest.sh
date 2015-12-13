@@ -30,7 +30,7 @@ CVERSION="22x"
 	DATA="uid=${USERID}&apikey=${APIKEY}&action=getconfigs&version=${CVERSION}&type=${OCFGTYPE}";
 	
 	echo Download Configs 
-	echo curl --request POST $URL --data $DATA -o configs.zip
+	curl --request POST $URL --data $DATA -o configs.zip
 
 echo Extract new configs
 mv configs configs.old
