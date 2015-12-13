@@ -96,6 +96,33 @@ Metered download speed for US1.ovpn.to.ovpn.to: 46851 Kb/s (45.75 Mb/s).
 root@dl:~/oVPN.to-Speedtest#
 ```
 
+```
+Syntax:
+oVPN.to-Speedtest.sh SERVERNAME [SERVERNAME] [...] [SERVERNAME]
+oVPN.to-Speedtest.sh [OPTION]
+
+General options:
+-h, --help       display this help message
+-l, --list       list all valid servers
+-g, --gen        generate server list from config directory
+-u, --update     download current configs & generate new server list
+
+Target specification options:
+-a, --all        check all servers
+-5, --rand5      check 5 random servers from list
+-3, --rand3      check 3 random servers from list
+
+Example usage:
+oVPN.to-Speedtest.sh CH6 MD2 UK1 FR2 BG1 MD1 NL6 US1
+oVPN.to-Speedtest.sh --list
+root@dl:~/oVPN.to-Speedtest#
+```
+
+
+
+
+
+
 ## Features
 * generate server list from config-file archiv
 * cross-plattform: tested on Mac OS X, Linux, OpenWRT, Synology Diskstation, etc.
