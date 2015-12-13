@@ -6,6 +6,7 @@ scriptdir=$(readlink -f $(dirname "$0"))
 
 clear
 
+cat banner.txt
 
 
 
@@ -115,31 +116,30 @@ die() {
 usage() {
   
 
-cat banner.txt
 
  if [ "$*" != "" ] ; then
         echo -e "\033[31m\nError:\033[0m $*"
-        
     fi
+
 echo -e "\nSyntax:"
 echo -e "\033[0;33m$PROGNAME SERVERNAME [SERVERNAME] [...] [SERVERNAME]\033[0m" 
-echo -e "\033[0;34m$PROGNAME [OPTION]\033[0m"
+echo -e "\033[0;34m$PROGNAME [OPTION]\033[0m\n"
   
-   
 
-echo
+
 echo General options:
-echo -h, --help          display this help message
-echo -l, --list          list all valid servers
-echo -g, --gen           generate server list from config directory
-echo -u, --update        update config files
+echo -e "-h, --help\t display this help message"
+echo -e "-l, --list\t list all valid servers"
+echo -e "-g, --gen \t generate server list from config directory"
+echo -e "-u, --update\t update config files"
 echo -e "\nTarget specification options:"
-echo -a, --all           check all servers
-echo -5, --rand5         check 5 random servers from list
-echo -3, --rand3         check 3 random servers from list
+echo -e "-a, --all\t check all servers"
+echo -e "-5, --rand5\t check 5 random servers from list"
+echo -e "-3, --rand3\t check 3 random servers from list"
 
 echo -e "\nExample usage:\n\033[0;33m$PROGNAME CH6 MD2 UK1 FR2 BG1 MD1 NL6 US1\033[0m"
 echo -e "\033[0;34m$PROGNAME --list\033[0m"
+ 
     exit 1
 }
 
@@ -164,6 +164,27 @@ while [ $# -gt 0 ] ; do
 						ip=$(echo $line|awk '{print $2}')
   				    	checker $host $ip
 					done < "serverlist.txt" ;
+else echo -e "No config file found. Generate a new one, with option \033[31m--update\033[0m or copy an existing one to: \033[31msettings.conf\033[0m."
+fi   
+        }
+        
+        bar="1"
+        ;;
+             -5|--rand5)
+        {      
+        
+         if [ -f settings.conf ]; then
+              source settings.conf
+              shuf -n 3 serverlist.txt > serverlist5.tmp
+              serv=`awk '{print $1}' serverlist5.tmp| tr '\n' ' '`
+              echo -e "\nTesting current network quality of: $serv\n"
+         		while read -r line
+					do
+    					host=$(echo $line|awk '{print $1}')
+						ip=$(echo $line|awk '{print $2}')
+  				    	checker $host $ip
+					done < "serverlist5.tmp"
+					rm $scriptdir/serverlist5.tmp;
 else echo -e "No config file found. Generate a new one, with option \033[31m--update\033[0m or copy an existing one to: \033[31msettings.conf\033[0m."
 fi   
         }
@@ -197,16 +218,20 @@ fi
         { echo  -e "\033[31mCurrent oVPN.to Server List\033[0m\n";
             if [ -f serverlist.txt ]; then
               cat serverlist.txt;count=`wc -l serverlist.txt | awk '{print $1}'`;echo -e "\n\033[31mTotal: $count active\033[0m"; 
-else echo -e "No server list found. Generate a new one, with option \033[31m--gen\033[0m, or copy an existing list to: \033[31mserverlist.txt\033[0m."
+else echo -e "No server list found. Generate a new one, with option \033[31m--gen\033[0m or copy an existing list to: \033[31mserverlist.txt\033[0m."
 fi           }
         bar="1"
         ;;
    -g|--gen)
-      {   export CONFIG_PATH=configs
+      {  
+         if [ -d configs ]; then
+       export CONFIG_PATH=configs
 grep "remote " $CONFIG_PATH/*.ovpn|sed -r 's/^.+\///' | sed  's/.ovpn:remote//g'|awk '{print $1 " " $2}' > serverlist.txt
 count=`wc -l serverlist.txt|awk '{print $1}'`
 echo Insgesamt $count gefunden und in Serverliste geschrieben.
-         }
+   else 
+   echo Verzeichnis mit Konfigurationen \(\"configs\"\) nicht gefunden.
+   fi      }
         bar="1"
         ;;
    -u|--update)
@@ -232,4 +257,3 @@ done
 if [ -z "$bar" ] ; then
     usage "No input arguments passed. At least supply: one target host (to be tested) or an valid command-line option (to be executed)."
 fi
-
