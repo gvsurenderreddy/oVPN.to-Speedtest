@@ -105,7 +105,7 @@ die() {
 
 usage() {
     if [ "$*" != "" ] ; then
-        echo -e "\033[31mError:\033[0m $*"
+        echo  "\033[31mError:\033[0m $*"
         
     fi
 
@@ -150,7 +150,7 @@ done < "serverlist.txt" ; }
         bar="1"
         ;;
     -l|--list)
-        { echo  "\033[31mCurrent oVPN.to Server List\033[0m\n";
+        { echo  -e "\033[31mCurrent oVPN.to Server List\033[0m\n";
                cat serverlist.txt;count=`wc -l serverlist.txt | awk '{print $1}'`;echo  "\n\033[31mTotal: $count active\033[0m"; 
            }
         bar="1"
