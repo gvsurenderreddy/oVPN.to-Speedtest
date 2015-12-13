@@ -2,6 +2,11 @@
 set -e
 
 PROGNAME=$(basename $0)
+scriptdir=$(readlink -f $(dirname "$0"))
+
+clear
+
+
 
 
 update() {
@@ -72,7 +77,7 @@ links=("http://cachefly.cachefly.net/100mb.test"
 "http://lg.as47692.net/tools/100MB.test"
 "http://www.seflow.it/infrastruttura/100MB.test")
 
-echo "Testing current network quality of $1!"
+
 cd $TMP_PATH
 for link in ${links[*]}
 do
@@ -108,25 +113,33 @@ die() {
 }
 
 usage() {
-    if [ "$*" != "" ] ; then
-        echo -e "\033[31mError:\033[0m $*"
+  
+
+cat banner.txt
+
+ if [ "$*" != "" ] ; then
+        echo -e "\033[31m\nError:\033[0m $*"
         
     fi
+echo -e "\nSyntax:"
+echo -e "\033[0;33m$PROGNAME SERVERNAME [SERVERNAME] [...] [SERVERNAME]\033[0m" 
+echo -e "\033[0;34m$PROGNAME [OPTION]\033[0m"
+  
+   
 
-    cat << EOF
+echo
+echo General options:
+echo -h, --help          display this help message
+echo -l, --list          list all valid servers
+echo -g, --gen           generate server list from config directory
+echo -u, --update        update config files
+echo -e "\nTarget specification options:"
+echo -a, --all           check all servers
+echo -5, --rand5         check 5 random servers from list
+echo -3, --rand3         check 3 random servers from list
 
-Usage: $PROGNAME [OPTION...] <server> [server] [server] [server]
-
-Options:
--h, --help          display this help message
--a, --all           check all servers
--l, --list          list all valid servers
--g, --gen           generate server list from config directory
--u, --update        update config files
-
-
-EOF
-
+echo -e "\nExample usage:\n\033[0;33m$PROGNAME CH6 MD2 UK1 FR2 BG1 MD1 NL6 US1\033[0m"
+echo -e "\033[0;34m$PROGNAME --list\033[0m"
     exit 1
 }
 
@@ -157,6 +170,29 @@ fi
         
         bar="1"
         ;;
+        
+          -3|--rand3)
+        {      
+        
+         if [ -f settings.conf ]; then
+              source settings.conf
+              shuf -n 3 serverlist.txt > serverlist3.tmp
+              serv=`awk '{print $1}' serverlist3.tmp| tr '\n' ' '`
+              echo -e "\nTesting current network quality of: $serv\n"
+         		while read -r line
+					do
+    					host=$(echo $line|awk '{print $1}')
+						ip=$(echo $line|awk '{print $2}')
+  				    	checker $host $ip
+					done < "serverlist3.tmp"
+					rm $scriptdir/serverlist3.tmp;
+else echo -e "No config file found. Generate a new one, with option \033[31m--update\033[0m or copy an existing one to: \033[31msettings.conf\033[0m."
+fi   
+        }
+        
+        bar="1"
+        ;;
+        
     -l|--list)
         { echo  -e "\033[31mCurrent oVPN.to Server List\033[0m\n";
             if [ -f serverlist.txt ]; then
@@ -194,6 +230,6 @@ echo Insgesamt $count gefunden und in Serverliste geschrieben.
 done
 
 if [ -z "$bar" ] ; then
-    usage "Not enough arguments"
+    usage "No input arguments passed. At least supply: one target host (to be tested) or an valid command-line option (to be executed)."
 fi
 
