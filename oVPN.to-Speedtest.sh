@@ -105,7 +105,7 @@ die() {
 
 usage() {
     if [ "$*" != "" ] ; then
-        echo "\033[31mError:\033[0m $*"
+        echo -e "\033[31mError:\033[0m $*"
         
     fi
 
