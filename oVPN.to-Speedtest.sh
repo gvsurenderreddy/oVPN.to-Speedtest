@@ -4,6 +4,41 @@ set -e
 PROGNAME=$(basename $0)
 
 
+update() {
+
+PORT="443"; DOMAIN="vcp.ovpn.to"; API="xxxapi.php"; URL="https://${DOMAIN}:${PORT}/$API";
+SSL="CE:4F:88:43:F8:6B:B6:60:C6:02:C7:AB:9C:A9:2F:15:3A:9F:F4:65:A3:20:D0:11:A1:27:74:B4:07:B9:54:6A";
+    
+APICONFIGFILE="settings.conf";
+ASTUPDATEFILE="lastovpntoupdate.txt";
+OCFGTYPE="lin";
+CVERSION="22x"
+
+
+	if test -e ${APICONFIGFILE}; then 
+		source ${APICONFIGFILE};
+	else
+		echo  -e "No config file found. Creating new one.\nPlease edit: `pwd`/${APICONFIGFILE}\n";
+		
+		echo -e "USERID=\"00000\";\nAPIKEY=\"0x123abc\";\nPROXYUSER=\"oVPN12345\";\nPROXYPASS=\"0ade904361f156c739e1\";\n" > ${APICONFIGFILE}
+	#	cat ${APICONFIGFILE};
+		exit 1;
+	fi;
+	if ! test ${USERID} -gt 0; then echo "Invalid USERID in ${APICONFIGFILE}"; exit 1; fi
+	if ! test `echo -n "${APIKEY}"|wc -c` -eq "128"; then echo "Invalid APIKEY in ${APICONFIGFILE}"; exit 1; fi
+	
+	DATA="uid=${USERID}&apikey=${APIKEY}&action=getconfigs&version=${CVERSION}&type=${OCFGTYPE}";
+	
+	echo Download Configs 
+	CURL --request POST $URL --data $DATA -o configs.zip
+
+echo Extract new configs
+mv configs configs.old
+mkdir configs
+unzip configs.zip -d configs
+rm configs.zip
+
+}
 checker() {
    
 TMP_PATH=/tmp/speedcheck
