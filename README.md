@@ -5,26 +5,18 @@
 Manually check the network speed of some oVPN.to servers, before (re-)connecting your VPN connection (from home or on the road). To easily identify the servers that provide the connection speed you need/want. (e.g. before downloading ISOs or 100 GB porn site-rips, ...)
 
 ```
-root@dl:~/oVPN.to-Speedtest# ./oVPN.to-Speedtest.sh nl6
-[I] oVPN.to-Speedtest.sh: start 15/12/06@22:40:32 with process id 32719 by root@dl:/root/oVPN.to-Speedtest (NOLOG)
-oVPN.to Speedtest
-Testing current network quality of nl6.ovpn.to!
-Metered download speed for nl6.ovpn.to: 46644 Kb/s (45.55 Mb/s).
-[I] oVPN.to-Speedtest.sh finished at 22H40 (Time=12s, Error=0, Warning=0, RC=0).
-root@dl:~/oVPN.to-Speedtest# ./oVPN.to-Speedtest.sh de3
-[I] oVPN.to-Speedtest.sh: start 15/12/06@22:40:49 with process id 369 by root@dl:/root/oVPN.to-Speedtest (NOLOG)
-oVPN.to Speedtest
-Syntax: oVPN.to-Speedtest.sh <server>
-To show all valid servers: oVPN.to-Speedtest.sh --list
+./oVPN.to-Speedtest.sh -3
+                      __         ____                ____          __
+ ___ _  _____  ___   / /____    / __/__  ___ ___ ___/ / /____ ___ / /_
+/ _ \ |/ / _ \/ _ \_/ __/ _ \  _\ \/ _ \/ -_) -_) _  / __/ -_|_-</ __/
+\___/___/ .__/_//_(_)__/\___/ /___/ .__/\__/\__/\_,_/\__/\__/___/\__/
+       /_/                       /_/
 
-Error: Syntax error or invalid server name chosen.
-[I] oVPN.to-Speedtest.sh finished at 22H40 (Time=0s, Error=0, Warning=0, RC=0).
-root@dl:~/oVPN.to-Speedtest# ./oVPN.to-Speedtest.sh is1
-[I] oVPN.to-Speedtest.sh: start 15/12/06@22:41:40 with process id 464 by root@dl:/root/oVPN.to-Speedtest (NOLOG)
-oVPN.to Speedtest
-Testing current network quality of is1.ovpn.to!
-Metered download speed for is1.ovpn.to: 39896 Kb/s (38.96 Mb/s).
-[I] oVPN.to-Speedtest.sh finished at 22H41 (Time=12s, Error=0, Warning=0, RC=0).
+Testing current network quality of: HU1.ovpn.to UK1.ovpn.to FR2.ovpn.to
+
+Metered download speed for HU1.ovpn.to: 20323 Kb/s (19.84 Mb/s).
+Metered download speed for UK1.ovpn.to: 39367 Kb/s (38.44 Mb/s).
+Metered download speed for FR2.ovpn.to: 47624 Kb/s (46.50 Mb/s).
 root@dl:~/oVPN.to-Speedtest#
 ```
 
@@ -134,10 +126,3 @@ root@dl:~/oVPN.to-Speedtest#
  Version: 1.2
  Roadmap: i may improve, fix and extend it or never commit one line again
 </pre>
-
-                      __         ____                ____          __
- ___ _  _____  ___   / /____    / __/__  ___ ___ ___/ / /____ ___ / /_
-/ _ \ |/ / _ \/ _ \_/ __/ _ \  _\ \/ _ \/ -_) -_) _  / __/ -_|_-</ __/
-\___/___/ .__/_//_(_)__/\___/ /___/ .__/\__/\__/\_,_/\__/\__/___/\__/
-       /_/                       /_/
-
