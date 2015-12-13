@@ -33,7 +33,11 @@ CVERSION="22x"
 	curl --request POST $URL --data $DATA -o configs.zip
 
 echo Extract new configs
-mv configs configs.old
+if [ -d configs ]; then
+  mv configs configs.old
+fi
+
+
 mkdir configs
 unzip configs.zip -d configs
 rm configs.zip
