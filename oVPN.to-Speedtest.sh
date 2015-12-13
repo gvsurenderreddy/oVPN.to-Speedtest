@@ -155,8 +155,9 @@ done < "serverlist.txt" ; }
         ;;
     -l|--list)
         { echo  -e "\033[31mCurrent oVPN.to Server List\033[0m\n";
-               cat serverlist.txt;count=`wc -l serverlist.txt | awk '{print $1}'`;echo -e "\n\033[31mTotal: $count active\033[0m"; 
-           }
+            if [ -f serverlist.txt ]; then
+              cat serverlist.txt;count=`wc -l serverlist.txt | awk '{print $1}'`;echo -e "\n\033[31mTotal: $count active\033[0m"; 
+fi           }
         bar="1"
         ;;
    -g|--gen)
