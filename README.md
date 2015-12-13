@@ -24,7 +24,7 @@ oVPN.to-Speedtest.sh --list
 
 ## Features
 * generate server list from config-file archiv
-* download latest config-files from oVPN.to control panel via API
+* download latest config files from oVPN.to control panel (via official API and personal access key) 
 * cross-plattform: tested on Mac OS X, Linux, OpenWRT, Synology Diskstation, etc.
 * no dependencies
 
