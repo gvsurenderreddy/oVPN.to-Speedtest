@@ -6,3 +6,5 @@ getconfigs.sh
 serverlist.txt.bu
 serverlist.txt
 .gitignore
+validservers.txt
+.validservers.tmp

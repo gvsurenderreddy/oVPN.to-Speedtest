@@ -3,11 +3,28 @@ set -e
 
 PROGNAME=$(basename $0)
 scriptdir=$(readlink -f $(dirname "$0"))
-
+source lib/bsfl.sh
 clear
 
 cat lib/banner.txt
 
+checkservers() {  
+for i in $@
+do
+  
+   
+awk '{print $1}' serverlist.txt| tr '\n' ' '| sed  's/.ovpn.to//g' > .validservers.tmp
+  
+if ! grep -q -w $i .validservers.tmp ; then
+    msg_error "Target selection failed."
+    echo $i not found in server list.
+    usage
+    exit 0
+fi
+exit 0
+done
+
+}
 
 
 update() {
@@ -106,7 +123,7 @@ do
     speed2=`(echo "scale=2;$speed/1024" | bc)`
 
     
-    echo "Metered download speed for $1: $speed Kb/s ($speed2 Mb/s)".
+    msg_success "Metered download speed for $1: $speed Kb/s ($speed2 Mb/s)".
    
     
    # exit 0
@@ -126,7 +143,7 @@ usage() {
 
 
  if [ "$*" != "" ] ; then
-        echo -e "\033[31m\nError:\033[0m $*"
+         echo -e "\033[31m\nError:\033[0m $*"
     fi
 
 echo -e "\nSyntax:"
@@ -151,10 +168,8 @@ echo -e "\033[0;34m$PROGNAME --list\033[0m"
     exit 1
 }
 
-foo=""
-bar=""
-delete=0
-output="-"
+validinput=""
+
 while [ $# -gt 0 ] ; do
     case "$1" in
     -h|--help)
@@ -176,7 +191,7 @@ else echo -e "No config file found. Generate a new one, with option \033[31m--up
 fi   
         }
         
-        bar="1"
+        validinput="1"
         ;;
              -5|--rand5)
         {      
@@ -197,7 +212,7 @@ else echo -e "No config file found. Generate a new one, with option \033[31m--up
 fi   
         }
         
-        bar="1"
+        validinput="1"
         ;;
         
           -3|--rand3)
@@ -219,7 +234,7 @@ else echo -e "No config file found. Generate a new one, with option \033[31m--up
 fi   
         }
         
-        bar="1"
+        validinput="1"
         ;;
         
     -l|--list)
@@ -228,7 +243,7 @@ fi
               cat serverlist.txt;count=`wc -l serverlist.txt | awk '{print $1}'`;echo -e "\n\033[31mTotal: $count active\033[0m"; 
 else echo -e "No server list found. Generate a new one, with option \033[31m--gen\033[0m or copy an existing list to: \033[31mserverlist.txt\033[0m."
 fi           }
-        bar="1"
+        validinput="1"
         ;;
    -g|--gen)
       {  
@@ -240,28 +255,22 @@ echo Insgesamt $count Server in Configs-Ordner gefunden und in Serverliste gesch
    else 
    echo Verzeichnis mit Konfigurationen \(\"configs\"\) nicht gefunden.
    fi      }
-        bar="1"
+        validinput="1"
         ;;
    -u|--update)
         update
-        bar="1"
+        validinput="1"
         ;;
     -*)
-        usage "Unknown option '$1'"
+        msg_error "Unknown option '$1'"
+        usage
+        exit 
         ;;
     *)
-        if [ -z "$foo" ] ; then
-            foo="$1"
-        elif [ -z "$bar" ] ; then
-            bar="$1"
-        else
-            usage "Too many arguments"
-        fi
+        checkservers "$@"
         ;;
     esac
     shift
 done
 
-if [ -z "$bar" ] ; then
-    usage "No input arguments passed. At least supply: one target host (to be tested) or an valid command-line option (to be executed)."
-fi
+if [ -z "$*" ]; then echo;msg_error "No input arguments passed. At least supply: one target host (to be tested) or an valid command-line option (to be executed).";echo -e "Try \033[0;34m$PROGNAME -h\033[0m for help."; fi
