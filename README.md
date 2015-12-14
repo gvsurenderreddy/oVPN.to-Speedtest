@@ -3,8 +3,8 @@
 
 ```
 Syntax:
-oVPN.to-Speedtest.sh SERVERNAME [SERVERNAME] [...] [SERVERNAME]
-oVPN.to-Speedtest.sh [OPTION]
+oVPN.to-Speedtest SERVERNAME [SERVERNAME] [...] [SERVERNAME]
+oVPN.to-Speedtest [OPTION]
 
 General options:
 -h, --help       display this help message
@@ -33,7 +33,7 @@ oVPN.to-Speedtest.sh --list
 Manually check the network speed of some oVPN.to servers, before (re-)connecting your VPN connection (from home or on the road). To easily identify the servers that provide the connection speed you need/want. (e.g. before downloading ISOs or 100 GB porn site-rips, ...)
 
 ```
-root@x:~/oVPN.to-Speedtest# ./oVPN.to-Speedtest.sh -3
+root@x:~/oVPN.to-Speedtest# ./oVPN.to-Speedtest -3
                       __         ____                ____          __
  ___ _  _____  ___   / /____    / __/__  ___ ___ ___/ / /____ ___ / /_
 / _ \ |/ / _ \/ _ \_/ __/ _ \  _\ \/ _ \/ -_) -_) _  / __/ -_|_-</ __/
@@ -52,7 +52,7 @@ root@x:~/oVPN.to-Speedtest#
 **Or easily check the speed  any oVPN.to server, from an any device that runs Bash (VPS, router, load balancer, ...)
 for whatever useful reason (monitoring, load balance, disguising, analyzing, ...)**
 ```
-root@x:~/oVPN.to-Speedtest# ./oVPN.to-Speedtest.sh -all
+root@x:~/oVPN.to-Speedtest# ./oVPN.to-Speedtest --all
                       __         ____                ____          __
  ___ _  _____  ___   / /____    / __/__  ___ ___ ___/ / /____ ___ / /_
 / _ \ |/ / _ \/ _ \_/ __/ _ \  _\ \/ _ \/ -_) -_) _  / __/ -_|_-</ __/
@@ -76,8 +76,8 @@ root@x:~/oVPN.to-Speedtest#
 
 ### Misc
 <pre>
- Status: unfinished, draft 
- Version: 1.6
+ Status: alpha
+ Version: 0.1337
  Goal: build a tool(-set) for usage in (my) OpenWRT routers, that improves BW-management, LB- & QoS-decisions, based on  
  current real-world data (all available VPNs servers and realistically throughput)
  Roadmap: wat!?
