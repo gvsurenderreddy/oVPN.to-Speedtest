@@ -4,4 +4,4 @@ settings.conf
 settings.conf.bu
 getconfigs.sh
 serverlist.txt.bu
-serverlist.txt
+serverlist.txt.gitignore
