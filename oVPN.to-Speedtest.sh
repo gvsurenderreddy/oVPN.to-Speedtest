@@ -6,7 +6,7 @@ scriptdir=$(readlink -f $(dirname "$0"))
 
 clear
 
-cat banner.txt
+cat lib/banner.txt
 
 
 
