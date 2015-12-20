@@ -78,7 +78,7 @@ root@x:~/oVPN.to-Speedtest#
 <pre>
  Status: private beta
  Version: 0.37
- Goal: build a tool(-set) for usage in (my) OpenWRT routers, that improves BW-management, LB- & QoS-decisions, based on  
+ Goal: build a tool(set) for usage in (my) OpenWRT routers, that improves BW-management, LB- & QoS-decisions, based on  
  current real-world data (all available VPNs servers and realistically throughput)
  Roadmap: wat!?
 </pre>
