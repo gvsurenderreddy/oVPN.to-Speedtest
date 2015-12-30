@@ -92,7 +92,7 @@ echo -e "\nInsgesamt $count Server in Configs-Ordner gefunden und in Serverliste
 
 }
 checker() {
-#source settings.conf
+source $scriptdir/settings.conf
 TMP_PATH=/tmp/speedcheck
 export TEST_TIME=10
 ### set your ovpn.to proxy credentials here (see: https://vcp.ovpn.to/?site=oprx)
