@@ -132,7 +132,7 @@ do
     total_bytes=$(du -c $TMP_PATH | grep total | cut -f -1)
     
     # Cleaning up test downloads
-    rm -rf $TMP_PATH
+ #   rm -rf $TMP_PATH
   
  echo   speed=$(expr $total_bytes / $TEST_TIME)
 
