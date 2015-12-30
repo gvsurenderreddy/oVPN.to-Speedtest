@@ -93,8 +93,8 @@ echo -e "\nInsgesamt $count Server in Configs-Ordner gefunden und in Serverliste
 }
 checker() {
 source settings.conf
-export TMP_PATH=/tmp/speedcheck
-export TEST_TIME=10
+TMP_PATH=/tmp/speedcheck
+TEST_TIME=10
 ### set your ovpn.to proxy credentials here (see: https://vcp.ovpn.to/?site=oprx)
 
 # Mac only
@@ -129,7 +129,7 @@ do
     
     wait
     
-    total_bytes=$(du -c $TMP_PATH | grep total | cut -f -1)
+    total_bytes=$(du -c $TMP_PATH | grep -e total -e insgesamt | cut -f -1)
     
     # Cleaning up test downloads
  #   rm -rf $TMP_PATH
