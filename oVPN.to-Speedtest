@@ -18,7 +18,8 @@ for i in $@
 do
   
  # echo $i 
-awk '{print toupper($1)}' $scriptdir/serverlist.txt| tr '\n' ' '| sed  's/.ovpn.to//g' > $scriptdir/.validservers.tmp
+ typeset -u $1
+awk '{print $1}' $scriptdir/serverlist.txt| tr '\n' ' '| sed  's/.ovpn.to//g' > $scriptdir/.validservers.tmp
   
 if ! grep -q -w $i $scriptdir/.validservers.tmp ; then
     msg_error "Target selection failed."
