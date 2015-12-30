@@ -13,22 +13,23 @@ cat lib/banner.txt
 if [ -z "$*" ]; then echo;msg_error "No input arguments passed. At least supply: one target host (to be tested) or an valid command-line option (to be executed).";echo -e "Try \033[0;34m$PROGNAME -h\033[0m for help."; fi
 
 checkservers() {  
-
+[ -f ".serverlist.tmp" ] && rm ".serverlist.tmp" 
 for i in $@
 do
   
  # echo $i 
 awk '{print $1}' $scriptdir/serverlist.txt| tr '\n' ' '| sed  's/.ovpn.to//g' > $scriptdir/.validservers.tmp
-  
-if ! grep -q -w $i $scriptdir/.validservers.tmp ; then
+
+i2=`toupper $i`
+if ! grep -q -w $i2 $scriptdir/.validservers.tmp ; then
     msg_error "Target selection failed."
-    echo $i not found in server list.
+    echo $i2 not found in server list.
     usage
     exit 0
 fi
 #exit 0
 
-grep $i $scriptdir/serverlist.txt >> $scriptdir/.serverlist.tmp
+grep $i2 $scriptdir/serverlist.txt >> $scriptdir/.serverlist.tmp
               serv=`awk '{print $1}' $scriptdir/.serverlist.tmp| tr '\n' ' '`
               echo -e "\nTesting current network quality of: $serv\n"
          		while read -r line
