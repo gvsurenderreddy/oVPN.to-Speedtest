@@ -1,5 +1,5 @@
 # oVPN.to Speedtest Script
-**light-weight, automated, cross-plattform shell script, to easily check current network quality of oVPN.to servers**
+**light-weight, automatable, cross-plattform shell script, to easily check current network quality of oVPN.to servers**
 
 ```
 Syntax:
