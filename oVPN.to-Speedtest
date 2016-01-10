@@ -4,10 +4,10 @@ set -e
 PROGNAME=$(basename $0)
 scriptdir=$(readlink -f $(dirname "$0"))
 source lib/bsfl.sh
+[ -f "$scriptdir/fullerg.txt" ] && rm "$scriptdir/fullerg.txt" 
+
 clear
-
 cat lib/banner.txt
-
 
 
 if [ -z "$*" ]; then echo;msg_error "No input arguments passed. At least supply: one target host (to be tested) or an valid command-line option (to be executed).";echo -e "Try \033[0;34m$PROGNAME -h\033[0m for help."; fi
@@ -141,7 +141,7 @@ do
 
     
     msg_success "Metered download speed for $1: $speed Kb/s ($speed2 Mb/s)".
-    echo $1 $speed2 >> $scriptdir/fullerg.txt
+    echo $1  $speed2 Mb/s >> $scriptdir/fullerg.txt
     
    # exit 0
    # exit 1
@@ -204,6 +204,7 @@ while [ $# -gt 0 ] ; do
 						ip=$(echo $line|awk '{print $2}')
   				    	checker $host $ip
 					done < "serverlist.txt" ;
+					sort -k2 -n $scriptdir/fullerg.txt
 else echo -e "No config file found. Generate a new one, with option \033[31m--update\033[0m or copy an existing one to: \033[31msettings.conf\033[0m."
 fi   
         }
