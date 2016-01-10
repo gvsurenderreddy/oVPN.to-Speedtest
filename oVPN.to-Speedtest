@@ -195,7 +195,7 @@ while [ $# -gt 0 ] ; do
         
     -a|--all)
         {      
-        
+        touch fullerg.txt
          if [ -f settings.conf ]; then
               source settings.conf
          		while read -r line
