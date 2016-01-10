@@ -141,7 +141,7 @@ do
 
     
     msg_success "Metered download speed for $1: $speed Kb/s ($speed2 Mb/s)".
-    echo $1 $speed2 >> fullerg.txt
+    echo $1 $speed2 >> $scriptdir/fullerg.txt
     
    # exit 0
    # exit 1
@@ -195,7 +195,7 @@ while [ $# -gt 0 ] ; do
         
     -a|--all)
         {      
-        touch fullerg.txt
+        touch $scriptdir/fullerg.txt
          if [ -f settings.conf ]; then
               source settings.conf
          		while read -r line
