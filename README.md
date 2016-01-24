@@ -75,6 +75,13 @@ Metered download speed for US1.ovpn.to: 32664 Kb/s (31.89 Mb/s).
 root@x:~/oVPN.to-Speedtest#
 ```
 
+
+### You need
++ ... an active oVPN Service!
++ ... your User-ID from Account-Page @ https://vcp.ovpn.to/?site=account
++ ... your API-Key from https://vcp.ovpn.to/?site=apikey 
++ ... any passphrase to locally save and encrypt your API credentials !
+
 ### Misc
 <pre>
  Status: private beta
