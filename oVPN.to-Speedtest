@@ -147,6 +147,11 @@ do
    # exit 1
 }
 
+results() {
+    sort -k2 -n fullerg.txt
+    exit 1
+}
+
 
 
 
@@ -279,6 +284,12 @@ echo Insgesamt $count Server in Configs-Ordner gefunden und in Serverliste gesch
         update
         validinput="1"
         ;;
+        
+    -r|--results)
+        results
+        validinput="1"
+        ;;    
+    
     -*)
         msg_error "Unknown option '$1'"
         usage
