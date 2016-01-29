@@ -12,6 +12,10 @@ cat lib/banner.txt
 
 if [ -z "$*" ]; then echo;msg_error "No input arguments passed. At least supply: one target host (to be tested) or an valid command-line option (to be executed).";echo -e "Try \033[0;34m$PROGNAME -h\033[0m for help."; fi
 
+#   ---------------------------------------
+#   1.  checkservers()
+#   ---------------------------------------
+
 checkservers() {  
 [ -f ".serverlist.tmp" ] && rm ".serverlist.tmp" 
 for i in $@
@@ -43,6 +47,9 @@ done
 exit 0
 }
 
+#   ---------------------------------------
+#   2.  update()
+#   ---------------------------------------
 
 update() {
 
