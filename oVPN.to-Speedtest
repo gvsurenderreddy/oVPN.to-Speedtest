@@ -194,6 +194,7 @@ echo General options:
 echo -e "-h, --help\t display this help message"
 echo -e "-l, --list\t list all valid servers"
 echo -e "-g, --gen \t generate server list from config directory"
+echo -e "-r, --results \t show sorted results of scan"
 echo -e "-u, --update\t download current configs & generate new server list"
 echo -e "\nTarget specification options:"
 echo -e "-a, --all\t check all servers"
