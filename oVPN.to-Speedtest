@@ -4,7 +4,7 @@ set -e
 PROGNAME=$(basename $0)
 scriptdir=$(readlink -f $(dirname "$0"))
 source lib/bsfl.sh
-#[ -f "$scriptdir/fullerg.txt" ] && rm "$scriptdir/fullerg.txt" 
+[ -f "$scriptdir/fullerg.txt" ] && rm "$scriptdir/results.txt" 
 
 clear
 cat lib/banner.txt
@@ -98,6 +98,11 @@ echo -e "\nInsgesamt $count Server in Configs-Ordner gefunden und in Serverliste
 
 
 }
+
+#   ---------------------------------------
+#   3.  checker()
+#   ---------------------------------------
+
 checker() {
 source $scriptdir/settings.conf
 TMP_PATH=/tmp/speedcheck
@@ -154,8 +159,12 @@ do
    # exit 1
 }
 
+#   ---------------------------------------
+#   4.  results()
+#   ---------------------------------------
+
 results() {
-    sort -k2 -n fullerg.txt
+    sort -k2 -n results.txt
     exit 1
 }
 
