@@ -4,7 +4,7 @@ set -e
 PROGNAME=$(basename $0)
 scriptdir=$(readlink -f $(dirname "$0"))
 source lib/bsfl.sh
-[ -f "$scriptdir/fullerg.txt" ] && rm "$scriptdir/fullerg.txt" 
+#[ -f "$scriptdir/fullerg.txt" ] && rm "$scriptdir/fullerg.txt" 
 
 clear
 cat lib/banner.txt
