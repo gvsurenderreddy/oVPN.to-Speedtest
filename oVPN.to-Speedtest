@@ -1,4 +1,7 @@
 #!/bin/bash
+command -v bc >/dev/null 2>&1 || { echo "I require foo but it's not installed.  Aborting." >&2; apt-get install bc; }
+command -v curl >/dev/null 2>&1 || { echo "I require foo but it's not installed.  Aborting." >&2; apt-get install curl; }
+
 set -e
 
 PROGNAME=$(basename $0)
